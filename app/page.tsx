@@ -1,3 +1,4 @@
+import { Hero } from "@/components/hero";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
 import { PlaceholderBlock, SectionHeading } from "@/components/ui";
@@ -8,24 +9,7 @@ import { formatDisciplines } from "@/lib/utils";
 export default function HomePage() {
   return (
     <main>
-      {/* 01 — Hero (placeholder shell — cinematic implementation in Phase 3) */}
-      <Section spacing="none" className="flex min-h-[80dvh] items-center">
-        <Container>
-          <div className="flex flex-col gap-6 py-24">
-            <p className="font-mono-label text-accent">{siteConfig.name}</p>
-            <h1 className="text-display text-balance uppercase">
-              {siteConfig.tagline}
-            </h1>
-            <p className="font-mono-label text-muted">
-              {formatDisciplines(siteConfig.disciplines)}
-            </p>
-            <PlaceholderBlock
-              message="Cinematic hero with interface environment — Phase 3"
-              className="mt-8 max-w-xl"
-            />
-          </div>
-        </Container>
-      </Section>
+      <Hero />
 
       {/* 02 — Introduction */}
       <Section id="introduction">

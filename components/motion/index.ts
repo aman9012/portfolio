@@ -5,4 +5,10 @@
  * will be implemented here.
  */
 
-export {};
+import type { Transition } from "framer-motion";
+
+/** Shared, restrained transition used by global navigation motion. */
+export const navigationTransition: Transition = {
+  duration: 0.35,
+  ease: [0.16, 1, 0.3, 1],
+};
