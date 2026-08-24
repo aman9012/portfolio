@@ -6,6 +6,7 @@ import { siteConfig } from "@/data/site";
 import { skillGroups, processSteps } from "@/data/skills";
 import { formatDisciplines } from "@/lib/utils";
 import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import { WorkShowcase } from "@/components/work";
 
 export default function HomePage() {
   return (
@@ -27,18 +28,32 @@ export default function HomePage() {
       </Section>
 
       {/* 03 — Selected Work */}
-      <Section id="work">
-        <Container>
-          <SectionHeading
-            index="03"
-            title="Selected Work"
-            subtitle="Large cinematic project showcase."
-          />
-          <Reveal>
-  <PlaceholderBlock message="[Placeholder — projects will appear here as they are added to data/projects.ts]" />
-</Reveal>
-        </Container>
-      </Section>
+      <section
+  id="work"
+  className="section-shell"
+>
+  <div className="container-shell">
+    <div className="mb-12 flex items-end justify-between gap-6">
+      <div>
+        <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+          Selected Work
+        </p>
+
+        <h2 className="mt-3 font-display text-4xl font-semibold tracking-tight md:text-6xl">
+          BUILT TO
+          <br />
+          PERFORM.
+        </h2>
+      </div>
+
+      <span className="hidden font-mono text-xs uppercase tracking-[0.16em] text-muted md:block">
+        01 — 04
+      </span>
+    </div>
+
+    <WorkShowcase />
+  </div>
+</section>
 
       {/* 04 — Capabilities */}
       <Section id="capabilities">

@@ -1,42 +1,30 @@
-import type { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
-import { Section } from "@/components/ui/Section";
-import { PageHeader, PlaceholderBlock } from "@/components/ui";
-import { projects } from "@/data/projects";
-
-export const metadata: Metadata = {
-  title: "Work",
-  description:
-    "Selected projects spanning web development, digital marketing, and creative direction.",
-};
+import { WorkShowcase } from "@/components/work";
 
 export default function WorkPage() {
   return (
-    <Section>
-      <Container>
-        <PageHeader
-          title="Work"
-          description="Selected projects and digital experiences."
-        />
+    <main>
+      <section className="section-shell pt-32">
+        <div className="container-shell">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
+            Selected Work
+          </p>
 
-        {projects.length === 0 ? (
-          <PlaceholderBlock message="[Placeholder — no projects added yet. Add verified project entries to data/projects.ts]" />
-        ) : (
-          <div className="grid gap-8 md:grid-cols-2">
-            {projects.map((project) => (
-              <article
-                key={project.slug}
-                className="rounded-xl border border-border p-6"
-              >
-                <h2 className="font-display text-xl font-semibold">
-                  {project.title}
-                </h2>
-                <p className="mt-2 text-sm text-muted">{project.description}</p>
-              </article>
-            ))}
+          <h1 className="mt-4 max-w-4xl font-display text-5xl font-semibold tracking-tight md:text-7xl">
+            DIGITAL EXPERIENCES
+            <br />
+            BUILT WITH INTENT.
+          </h1>
+
+          <p className="mt-6 max-w-2xl text-base leading-8 text-muted">
+            A selection of web development, digital marketing, and
+            product-focused work.
+          </p>
+
+          <div className="mt-16">
+            <WorkShowcase />
           </div>
-        )}
-      </Container>
-    </Section>
+        </div>
+      </section>
+    </main>
   );
 }
