@@ -6,6 +6,7 @@
  */
 
 import type { Transition } from "framer-motion";
+export { Reveal } from "./Reveal";
 
 /** Shared, restrained transition used by global navigation motion. */
 export const navigationTransition: Transition = {
