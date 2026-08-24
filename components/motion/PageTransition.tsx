@@ -4,48 +4,32 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 import { motionEase } from "./tokens";
 
-interface RevealProps {
+interface PageTransitionProps {
   children: ReactNode;
-  className?: string;
-  delay?: number;
-  duration?: number;
-  y?: number;
-  once?: boolean;
 }
 
-export function Reveal({
+export function PageTransition({
   children,
-  className,
-  delay = 0,
-  duration = 0.6,
-  y = 24,
-  once = true,
-}: RevealProps) {
+}: PageTransitionProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
     <motion.div
-      className={className}
       initial={
         prefersReducedMotion
           ? false
           : {
               opacity: 0,
-              y,
+              y: 8,
             }
       }
-      whileInView={{
+      animate={{
         opacity: 1,
         y: 0,
       }}
-      viewport={{
-        once,
-        amount: 0.2,
-      }}
       transition={{
-        duration: prefersReducedMotion ? 0 : duration,
-        delay: prefersReducedMotion ? 0 : delay,
-        ease: motionEase.cinematic,
+        duration: prefersReducedMotion ? 0 : 0.4,
+        ease: motionEase.out,
       }}
     >
       {children}

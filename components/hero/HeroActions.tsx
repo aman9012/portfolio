@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { ButtonLink } from "@/components/ui";
 import { cn } from "@/lib/utils";
+import { Magnetic } from "@/components/motion";
 
 type HeroActionsProps = {
   reducedMotion: boolean | null;
@@ -22,20 +23,27 @@ export function HeroActions({ reducedMotion, className }: HeroActionsProps) {
       }}
       className={cn("mt-6 flex flex-wrap items-center gap-3 md:mt-9", className)}
     >
-      <ButtonLink
-        href="/work"
-        className="group min-w-32 hover:-translate-y-0.5 hover:shadow-glow"
-      >
-        View Work
-        <ArrowUpRight
-          size={16}
-          aria-hidden="true"
-          className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-        />
-      </ButtonLink>
-      <ButtonLink href="/contact" variant="secondary" className="min-w-28 hover:-translate-y-0.5">
-        Contact
-      </ButtonLink>
+      <Magnetic strength={5}>
+  <ButtonLink
+    href="/work"
+    className="group min-w-32 hover:-translate-y-0.5 hover:shadow-glow"
+  >
+    View Work
+    <ArrowUpRight
+      size={16}
+      aria-hidden="true"
+      className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+    />
+  </ButtonLink>
+</Magnetic>
+
+<ButtonLink
+  href="/contact"
+  variant="secondary"
+  className="min-w-28 hover:-translate-y-0.5"
+>
+  Contact
+</ButtonLink>
     </motion.div>
   );
 }

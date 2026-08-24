@@ -5,11 +5,14 @@
  * will be implemented here.
  */
 
-import type { Transition } from "framer-motion";
 export { Reveal } from "./Reveal";
+export { Stagger, StaggerItem } from "./Stagger";
+export { Magnetic } from "./Magnetic";
+export { PageTransition } from "./PageTransition";
 
-/** Shared, restrained transition used by global navigation motion. */
-export const navigationTransition: Transition = {
-  duration: 0.35,
-  ease: [0.16, 1, 0.3, 1],
-};
+export {
+  motionDuration,
+  motionEase,
+  revealTransition,
+  navigationTransition,
+} from "./tokens";

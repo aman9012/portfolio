@@ -5,6 +5,7 @@ import { PlaceholderBlock, SectionHeading } from "@/components/ui";
 import { siteConfig } from "@/data/site";
 import { skillGroups, processSteps } from "@/data/skills";
 import { formatDisciplines } from "@/lib/utils";
+import { Reveal, Stagger, StaggerItem } from "@/components/motion";
 
 export default function HomePage() {
   return (
@@ -19,7 +20,9 @@ export default function HomePage() {
             title="Introduction"
             subtitle="Who I am and how technology, design, and growth intersect."
           />
-          <PlaceholderBlock message="[Placeholder — professional introduction to be added]" />
+          <Reveal>
+  <PlaceholderBlock message="[Placeholder — professional introduction to be added]" />
+</Reveal>
         </Container>
       </Section>
 
@@ -31,7 +34,9 @@ export default function HomePage() {
             title="Selected Work"
             subtitle="Large cinematic project showcase."
           />
-          <PlaceholderBlock message="[Placeholder — projects will appear here as they are added to data/projects.ts]" />
+          <Reveal>
+  <PlaceholderBlock message="[Placeholder — projects will appear here as they are added to data/projects.ts]" />
+</Reveal>
         </Container>
       </Section>
 
@@ -43,19 +48,21 @@ export default function HomePage() {
             title="Capabilities"
             subtitle={formatDisciplines(siteConfig.disciplines)}
           />
-          <div className="grid gap-6 md:grid-cols-3">
-            {skillGroups.map((group) => (
-              <article
-                key={group.category}
-                className="rounded-xl border border-border bg-secondary/30 p-6"
-              >
-                <h3 className="font-display text-xl font-semibold text-foreground">
-                  {group.label}
-                </h3>
-                <p className="mt-2 text-sm text-muted">{group.description}</p>
-              </article>
-            ))}
-          </div>
+          <Stagger className="grid gap-6 md:grid-cols-3">
+  {skillGroups.map((group) => (
+    <StaggerItem key={group.category}>
+      <article className="rounded-xl border border-border bg-secondary/30 p-6">
+        <h3 className="font-display text-xl font-semibold text-foreground">
+          {group.label}
+        </h3>
+
+        <p className="mt-2 text-sm text-muted">
+          {group.description}
+        </p>
+      </article>
+    </StaggerItem>
+  ))}
+</Stagger>
         </Container>
       </Section>
 
@@ -67,7 +74,9 @@ export default function HomePage() {
             title="Technology"
             subtitle="Technical stack and capabilities."
           />
-          <PlaceholderBlock message="[Placeholder — technology presentation — Phase 6]" />
+          <Reveal>
+  <PlaceholderBlock message="[Placeholder — technology presentation — Phase 6]" />
+</Reveal>
         </Container>
       </Section>
 
@@ -79,7 +88,9 @@ export default function HomePage() {
             title="About"
             subtitle="Professional story and portrait."
           />
-          <PlaceholderBlock message="[Placeholder — about content and portrait — Phase 7]" />
+          <Reveal>
+  <PlaceholderBlock message="[Placeholder — about content and portrait — Phase 7]" />
+</Reveal>
         </Container>
       </Section>
 
@@ -91,22 +102,25 @@ export default function HomePage() {
             title="Process"
             subtitle="Discover · Plan · Build · Measure · Refine"
           />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {processSteps.map((step) => (
-              <article
-                key={step.step}
-                className="rounded-lg border border-border p-5"
-              >
-                <span className="font-mono-label text-accent">{step.step}</span>
-                <h3 className="mt-2 font-display text-lg font-semibold">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm placeholder-content">
-                  {step.description}
-                </p>
-              </article>
-            ))}
-          </div>
+          <Stagger className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+  {processSteps.map((step) => (
+    <StaggerItem key={step.step}>
+      <article className="h-full rounded-lg border border-border p-5">
+        <span className="font-mono-label text-accent">
+          {step.step}
+        </span>
+
+        <h3 className="mt-2 font-display text-lg font-semibold">
+          {step.title}
+        </h3>
+
+        <p className="mt-2 text-sm placeholder-content">
+          {step.description}
+        </p>
+      </article>
+    </StaggerItem>
+  ))}
+</Stagger>
         </Container>
       </Section>
 
@@ -118,7 +132,9 @@ export default function HomePage() {
             title="Let's Build Something."
             align="center"
           />
-          <PlaceholderBlock message="[Placeholder — contact section — Phase 9]" />
+          <Reveal>
+  <PlaceholderBlock message="[Placeholder — contact section — Phase 9]" />
+</Reveal>
         </Container>
       </Section>
     </main>
