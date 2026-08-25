@@ -59,18 +59,12 @@ export const skillGroups: SkillGroup[] = [
       "Digital Experience Design",
     ],
   },
-];
-
-/**
- * Reserved for future React Native / mobile projects.
- * Not presented as active capability until genuine experience exists.
- */
-export const futureSkillGroups: SkillGroup[] = [
   {
     category: "mobile-development",
     label: "Mobile Development",
-    description: "[Placeholder — to be added when mobile projects are available]",
-    items: ["React Native", "Firebase", "API Integration"],
+    description:
+      "Extending web product thinking into cross-platform mobile experiences.",
+    items: ["React Native", "Firebase", "API Integration", "Cross-Platform UI"],
   },
 ];
 
@@ -79,30 +73,30 @@ export const processSteps = [
     step: "01",
     title: "Discover",
     description:
-      "[Placeholder — define discovery approach for client and project context]",
+      "Understand the goal behind the project — audience, business context, and what success actually looks like — before any design or code decisions are made.",
   },
   {
     step: "02",
     title: "Plan",
     description:
-      "[Placeholder — define planning methodology and deliverables]",
+      "Map the information architecture, tech stack, and campaign or content structure so the build has a clear, agreed-upon direction from day one.",
   },
   {
     step: "03",
     title: "Build",
     description:
-      "[Placeholder — define build process and technical execution]",
+      "Develop with clean, maintainable code and structured tracking in place — performance, accessibility, and SEO fundamentals handled from the start, not bolted on later.",
   },
   {
     step: "04",
     title: "Measure",
     description:
-      "[Placeholder — define measurement and analytics approach]",
+      "Ship with analytics and conversion tracking wired up, then watch real numbers — traffic, engagement, Core Web Vitals, campaign performance — instead of guessing.",
   },
   {
     step: "05",
     title: "Refine",
     description:
-      "[Placeholder — define iteration and optimization process]",
+      "Use what the data shows to iterate — tightening copy, UX, and targeting in continuous small passes rather than one big relaunch.",
   },
 ] as const;

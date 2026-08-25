@@ -1,15 +1,16 @@
-import { featuredProjects } from "@/data/projects";
+import type { Project } from "@/types/project";
+import { projects } from "@/data/projects";
 import { ProjectCard } from "./ProjectCard";
 
-export function WorkShowcase() {
+type WorkShowcaseProps = {
+  items?: Project[];
+};
+
+export function WorkShowcase({ items = projects }: WorkShowcaseProps) {
   return (
     <div>
-      {featuredProjects.map((project, index) => (
-        <ProjectCard
-          key={project.slug}
-          project={project}
-          index={index}
-        />
+      {items.map((project, index) => (
+        <ProjectCard key={project.slug} project={project} index={index} />
       ))}
     </div>
   );

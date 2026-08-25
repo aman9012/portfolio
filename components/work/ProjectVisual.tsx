@@ -1,43 +1,104 @@
-import type { Project } from "@/data/projects";
+import Image from "next/image";
+import type { Project } from "@/types/project";
+import {
+  formatProjectCategory,
+  formatProjectIndex,
+  getProjectCoverSrc,
+} from "@/data/projects";
+import { cn } from "@/lib/utils";
 
-interface ProjectVisualProps {
+type ProjectVisualProps = {
   project: Project;
+  index?: number;
+  priority?: boolean;
+  showCaption?: boolean;
+  className?: string;
+};
+
+function visualSeed(slug: string) {
+  return slug.split("").reduce((total, character) => total + character.charCodeAt(0), 0);
 }
 
 export function ProjectVisual({
   project,
+  index = 0,
+  priority = false,
+  showCaption = true,
+  className,
 }: ProjectVisualProps) {
-  return (
-    <div className="group relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-secondary">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(212,175,55,0.12),transparent_35%),radial-gradient(circle_at_80%_80%,rgba(255,255,255,0.05),transparent_30%)]" />
+  const coverSrc = getProjectCoverSrc(project);
+  const seed = visualSeed(project.slug);
+  const accentX = 18 + (seed % 48);
+  const accentY = 16 + ((seed * 3) % 42);
+  const label = formatProjectCategory(project.category);
+  const number = formatProjectIndex(index);
 
-      <div className="absolute inset-6 rounded-xl border border-border/70 bg-background/60 p-5 backdrop-blur-sm transition-transform duration-700 ease-out group-hover:scale-[1.015]">
-        <div className="flex items-center justify-between border-b border-border pb-3">
-          <div className="flex gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-muted/60" />
-            <span className="h-2 w-2 rounded-full bg-muted/40" />
-            <span className="h-2 w-2 rounded-full bg-muted/30" />
+  return (
+    <div
+      className={cn(
+        "relative aspect-[4/3] overflow-hidden rounded-xl border border-border bg-secondary",
+        className,
+      )}
+    >
+      {coverSrc ? (
+        <Image
+          src={coverSrc}
+          alt={`${project.title} cover`}
+          fill
+          priority={priority}
+          sizes="(min-width: 1024px) 55vw, (min-width: 768px) 80vw, 100vw"
+          className="object-cover transition-transform duration-[var(--duration-cinematic)] ease-[var(--ease-out)] motion-safe:group-hover:scale-[1.035]"
+        />
+      ) : (
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 transition-transform duration-[var(--duration-cinematic)] ease-[var(--ease-out)] motion-safe:group-hover:scale-[1.03]"
+        >
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, rgba(255,255,255,0.045) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.045) 1px, transparent 1px)
+              `,
+              backgroundSize: "48px 48px",
+            }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(ellipse 42% 38% at ${accentX}% ${accentY}%, rgba(201,169,98,0.16), transparent 62%)`,
+            }}
+          />
+          <div className="absolute inset-y-[18%] left-[10%] w-px bg-accent/35" />
+          <div className="absolute inset-x-[10%] top-[22%] h-px bg-border-strong" />
+          <div className="absolute right-[12%] bottom-[20%] h-16 w-16 rounded-full border border-border-accent/80" />
+        </div>
+      )}
+
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/55 via-transparent to-background/10" />
+
+      {showCaption ? (
+        <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
+          <div className="flex items-start justify-between gap-4">
+            <p className="font-mono-label text-muted">{label}</p>
+            {project.status === "concept" ? (
+              <span className="font-mono-label text-accent">Concept</span>
+            ) : (
+              <span className="font-mono-label text-muted">{project.year}</span>
+            )}
           </div>
 
-          <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">
-            {project.category.replace("-", " ")}
-          </span>
-        </div>
-
-        <div className="flex h-[calc(100%-48px)] items-center justify-center">
-          <div className="text-center">
-            <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent">
-              Digital Experience
-            </p>
-
-            <p className="mt-3 font-display text-2xl font-semibold tracking-tight text-foreground md:text-4xl">
+          <div className="flex items-end justify-between gap-4">
+            <p className="max-w-[12rem] font-display text-xl font-semibold leading-tight tracking-tight text-foreground sm:max-w-xs sm:text-2xl">
               {project.title}
             </p>
+            <span className="font-display text-4xl font-semibold leading-none tracking-tight text-foreground/18 sm:text-5xl">
+              {number}
+            </span>
           </div>
         </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/40 to-transparent" />
+      ) : null}
     </div>
   );
 }

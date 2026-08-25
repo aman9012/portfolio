@@ -1,30 +1,38 @@
+import type { Metadata } from "next";
+import { Container } from "@/components/ui/Container";
+import { Section } from "@/components/ui/Section";
+import { Reveal } from "@/components/motion";
 import { WorkShowcase } from "@/components/work";
+import { projects } from "@/data/projects";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Selected web development, digital marketing, and product-focused work.",
+};
 
 export default function WorkPage() {
   return (
     <main>
-      <section className="section-shell pt-32">
-        <div className="container-shell">
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-            Selected Work
-          </p>
+      <Section>
+        <Container>
+          <Reveal>
+            <p className="font-mono-label text-accent">Selected Work</p>
+            <h1 className="mt-5 max-w-5xl font-display text-[clamp(2.35rem,8.2vw,5.75rem)] font-semibold leading-[0.9] tracking-[-0.045em] text-foreground uppercase">
+              Digital experiences
+              <span className="block">built with intent.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-muted md:text-lg">
+              A selection of web development, digital marketing, and
+              product-focused work.
+            </p>
+          </Reveal>
 
-          <h1 className="mt-4 max-w-4xl font-display text-5xl font-semibold tracking-tight md:text-7xl">
-            DIGITAL EXPERIENCES
-            <br />
-            BUILT WITH INTENT.
-          </h1>
-
-          <p className="mt-6 max-w-2xl text-base leading-8 text-muted">
-            A selection of web development, digital marketing, and
-            product-focused work.
-          </p>
-
-          <div className="mt-16">
-            <WorkShowcase />
+          <div className="mt-14 md:mt-20">
+            <WorkShowcase items={projects} />
           </div>
-        </div>
-      </section>
+        </Container>
+      </Section>
     </main>
   );
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Section } from "@/components/ui/Section";
-import { PageHeader, PlaceholderBlock } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
+import { ContactForm } from "@/components/contact";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,7 +17,7 @@ export default function ContactPage() {
           title="Contact"
           description="Let's build something together."
         />
-        <PlaceholderBlock message="[Placeholder — contact form UI — Phase 9. API integration — Phase 10]" />
+        <ContactForm />
       </Container>
     </Section>
   );

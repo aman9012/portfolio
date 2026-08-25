@@ -1,24 +1,27 @@
-import type { Placeholder } from "./common";
-
 export type ProjectCategory =
   | "web-development"
   | "digital-marketing"
-  | "creative-direction";
+  | "product";
+
+export type ProjectStatus = "live" | "concept";
+
+export type ProjectImages = {
+  cover?: string;
+  desktop?: string;
+  mobile?: string;
+};
 
 export interface Project {
-  title: Placeholder;
   slug: string;
+  title: string;
   category: ProjectCategory;
-  description: Placeholder;
+  year: string;
+  shortDescription: string;
+  description: string;
+  services: string[];
   technologies: string[];
-  year: Placeholder;
-  image: string;
-  gallery?: string[];
-  liveUrl?: string;
-  githubUrl?: string;
-  role: Placeholder;
-  challenge: Placeholder;
-  approach: Placeholder;
-  result: Placeholder;
-  featured?: boolean;
+  featured: boolean;
+  href?: string;
+  status?: ProjectStatus;
+  images?: ProjectImages;
 }

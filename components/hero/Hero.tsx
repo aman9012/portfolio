@@ -5,6 +5,7 @@ import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } fro
 import { HeroActions } from "./HeroActions";
 import { HeroHeadline } from "./HeroHeadline";
 import { HeroInterface } from "./HeroInterface";
+import { HeroRoleRotator } from "./HeroRoleRotator";
 import { HeroScrollIndicator } from "./HeroScrollIndicator";
 
 const heroTransition = {
@@ -79,6 +80,11 @@ export function Hero() {
           </motion.p>
 
           <HeroHeadline reducedMotion={prefersReducedMotion} />
+
+          <HeroRoleRotator
+            reducedMotion={prefersReducedMotion}
+            className="mt-4 md:mt-5"
+          />
 
           <motion.p
             initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
