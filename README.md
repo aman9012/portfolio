@@ -2,7 +2,7 @@
 
 Premium personal portfolio website for **Aman Yadav**, presenting work across web development, digital marketing, and creative direction.
 
-**Production domain:** [aman-yadav-info.netlify.app](https://aman-yadav-info.netlify.app)
+**Production domain:** [amanyadavinfo.netlify.app](https://aman-yadav-info.netlify.app)
 
 ---
 
