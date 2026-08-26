@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 type AboutSectionProps = {
   variant?: "full" | "compact";
@@ -23,12 +24,21 @@ export function AboutSection({ variant = "full", className }: AboutSectionProps)
             <div className="absolute right-0 top-0 h-16 w-16 border-b border-l border-accent/30" />
             <div className="absolute bottom-0 left-0 h-16 w-16 border-r border-t border-accent/30" />
             <div className="flex h-full items-center justify-center">
-              <span className="font-display text-6xl font-semibold tracking-tight text-foreground/25">
-                AY
-              </span>
+              <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-border">
+  <Image
+    src="/images/profile/profile.webp.png"
+    alt="Aman Yadav"
+    fill
+    sizes="(max-width: 768px) 100vw, 50vw"
+    className="object-cover"
+    priority={false}
+  />
+
+  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+</div>
             </div>
             <div className="absolute inset-x-0 bottom-0 border-t border-border bg-background/50 p-4 backdrop-blur-sm">
-              <p className="font-mono-label !text-[0.6rem] text-muted">Portrait — add photo</p>
+              <p className="font-mono-label !text-[0.6rem] text-muted">Portrait — Aman Yadav</p>
             </div>
           </div>
         </div>

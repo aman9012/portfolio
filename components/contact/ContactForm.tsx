@@ -2,8 +2,8 @@
 
 import { useState, type FormEvent } from "react";
 import { contactFormSchema, type ContactFormSchema } from "@/lib/validations";
-import { siteConfig } from "@/data/site";
-import { cn, isPlaceholder } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import type { ContactFormResponse } from "@/types/contact";
 
 type FormState = ContactFormSchema;
 type FormErrors = Partial<Record<keyof FormState, string>>;
@@ -21,9 +21,8 @@ const inputClasses =
 export function ContactForm() {
   const [values, setValues] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
-
-  const emailReady = !isPlaceholder(siteConfig.email);
+  const [status, setStatus] = useState<"idle" | "submitting" | "sent" | "error">("idle");
+  const [serverError, setServerError] = useState<string | null>(null);
 
   function handleChange(field: keyof FormState) {
     return (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -31,7 +30,7 @@ export function ContactForm() {
     };
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const result = contactFormSchema.safeParse(values);
@@ -47,21 +46,47 @@ export function ContactForm() {
     }
 
     setErrors({});
+    setServerError(null);
+    setStatus("submitting");
 
-    if (emailReady) {
-      const body = `From: ${result.data.name} (${result.data.email})\n\n${result.data.message}`;
-      const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(
-        result.data.subject,
-      )}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailto;
+    // Honeypot field — left empty by real users, often filled by bots.
+    const website = (event.currentTarget.elements.namedItem("website") as HTMLInputElement | null)?.value ?? "";
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...result.data, website }),
+      });
+
+      const data: ContactFormResponse = await response.json();
+
+      if (!response.ok || !data.success) {
+        setServerError(data.message || "Something went wrong. Please try again.");
+        setStatus("error");
+        return;
+      }
+
+      setStatus("sent");
+      setValues(initialState);
+    } catch {
+      setServerError("Network error — please try again in a moment.");
+      setStatus("error");
     }
-
-    setStatus("sent");
-    setValues(initialState);
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+      {/* Honeypot field: hidden from real users via CSS, bots often fill it anyway. */}
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
+
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="name" className="font-mono-label mb-2 block text-muted">
@@ -151,16 +176,21 @@ export function ContactForm() {
       <div className="mt-2 flex flex-wrap items-center gap-4">
         <button
           type="submit"
-          className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent bg-accent px-6 py-3 text-sm font-medium text-fg-inverse transition-colors duration-[var(--duration-base)] ease-[var(--ease-out)] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          disabled={status === "submitting"}
+          className="inline-flex items-center justify-center gap-2 rounded-full border border-transparent bg-accent px-6 py-3 text-sm font-medium text-fg-inverse transition-colors duration-[var(--duration-base)] ease-[var(--ease-out)] hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent disabled:cursor-not-allowed disabled:opacity-60"
         >
-          Send Message
+          {status === "submitting" ? "Sending..." : "Send Message"}
         </button>
 
         {status === "sent" && (
           <p className="text-sm text-muted" role="status">
-            {emailReady
-              ? "Opening your email client — thanks for reaching out."
-              : "Thanks for reaching out — I'll get back to you shortly."}
+            Thanks for reaching out — I&apos;ll get back to you shortly.
+          </p>
+        )}
+
+        {status === "error" && (
+          <p className="text-sm text-red-400" role="alert">
+            {serverError}
           </p>
         )}
       </div>

@@ -8,8 +8,12 @@ export const siteConfig = {
     "Digital Marketing",
     "Creative Direction",
   ] as const,
-  email: "[Placeholder — add contact email]",
-  domain: "https://aman-yadav-info.netlify.app",
+  email: "ay880196@gmail.com",
+  domain: "https://amanyadavinfo.netlify.app",
+  socials: {
+    linkedin: "https://www.linkedin.com/in/aman-yadav-info/",
+    github: "https://github.com/aman9012",
+  },
 } as const;
 
 export const siteMetadata: SiteMetadata = {
@@ -19,3 +23,4 @@ export const siteMetadata: SiteMetadata = {
   url: siteConfig.domain,
   ogImage: "/images/og/og-default.png",
 };
+

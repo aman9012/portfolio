@@ -4,6 +4,7 @@ import type {
   ProjectImages,
 } from "@/types/project";
 
+
 export type { Project, ProjectCategory, ProjectImages };
 
 export const projectCategoryLabels: Record<ProjectCategory, string> = {
@@ -14,20 +15,32 @@ export const projectCategoryLabels: Record<ProjectCategory, string> = {
 
 export const projects: Project[] = [
   {
-    slug: "volpebyfx",
-    title: "Volpe by FX",
-    category: "web-development",
-    year: "2026",
-    shortDescription:
-      "A premium financial platform focused on clear information architecture and a high-trust digital experience.",
-    description:
-      "A modern web experience designed around financial content, structured information, responsive interaction, and a refined visual system.",
-    services: ["Web Development", "UI Implementation", "Responsive Design"],
-    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    featured: true,
-    status: "live",
-    href: "https://volpebyfx.com/",
-  },
+  slug: "raman-studio",
+  title: "Raman Studio",
+  category: "web-development",
+  year: "2026",
+  shortDescription:
+    "A cinematic digital experience designed for a premium wedding and photography brand.",
+  description:
+    "A premium photography website focused on cinematic visual storytelling, elegant presentation, and a high-end digital experience for a wedding photography brand.",
+  services: [
+    "Web Development",
+    "UI Design",
+    "Motion Design",
+    "Creative Direction",
+  ],
+  technologies: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Framer Motion",
+  ],
+  featured: true,
+images: {
+  cover: "/images/projects/raman-studio/cover.JPG",
+},
+},
   {
     slug: "aman-portfolio",
     title: "Aman Yadav Portfolio",
@@ -40,6 +53,9 @@ export const projects: Project[] = [
     services: ["Creative Direction", "Web Development", "Motion Design"],
     technologies: ["Next.js", "React", "TypeScript", "Framer Motion"],
     featured: true,
+    images: {
+  cover: "/images/projects/portfolio.JPG",
+},
     status: "live",
   },
   {
